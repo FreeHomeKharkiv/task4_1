@@ -1,4 +1,9 @@
 #!/bin/bash
+
+touch .task4_1.out
+chmod 777 .task4_1.out
+exec 1>.task4_1.out
+
 ###CPU in your PC
 CPU=$(cat /proc/cpuinfo | grep 'model name' | awk '{print $4 $5 $6 $7}')
 if [[ -z $CPU ]];
@@ -67,3 +72,7 @@ echo "Users logged in: "$UsersLogged
 echo --- Network ---
 Network=$(ip -o -4 a | awk '$2 >=6 { print $2 ":" $4 }')
 echo -e "$Network"
+
+#touch task4_1.out
+#chmod 777 task.out
+#exec 2>task4_1.out
