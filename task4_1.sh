@@ -31,9 +31,9 @@ fi
 SSN=$(dmidecode -s system-serial-number)
 if [[ -z $SSN ]];
 then 
-   echo "System Serial Number: Unknown"
+    echo "System Serial Number: Unknown"
 else 
-   echo "System Serial Number: "$SSN
+     echo "System Serial Number: "$SSN
 fi
 
 ### Info about your OS
@@ -48,27 +48,25 @@ Kernel=$(uname -r)
 
 ###Installation date
 Date=$(stat /var/log/installer/ | grep Change | awk '{print $2}')
-echo "Installation date: "$Date
+    echo "Installation date: "$Date
 
-###Hostname
-   echo "Hostname: "$HOSTNAME
+###Your Hostname
+    echo "Hostname: "$HOSTNAME
 
 ###Uptime 
 Uptime=$(uptime -p)
-     echo "Uptime: "$Uptime
+    echo "Uptime: "$Uptime
 
 ###Processes running
 PrRun=$(ps -ef | wc -l)
-echo "Processes running: "$PrRun
+    echo "Processes running: "$PrRun
 
 ###Users logged in your system
-
 UsersLogged=$(cat /etc/passwd | awk -F: '{if ($3>=1000) print $1}' | wc -l)
-echo "Users logged in: "$UsersLogged
+    echo "Users logged in: "$UsersLogged
 
 
 ###Your network
-
 echo --- Network ---
 Network=$(ip -o -4 a | awk '$2 >=6 { print $2 ":" $4 }')
-echo -e "$Network"
+   echo -e "$Network"
