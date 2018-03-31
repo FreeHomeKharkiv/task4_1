@@ -72,7 +72,3 @@ echo "Users logged in: "$UsersLogged
 echo --- Network ---
 Network=$(ip -o -4 a | awk '$2 >=6 { print $2 ":" $4 }')
 echo -e "$Network"
-
-#touch task4_1.out
-#chmod 777 task.out
-#exec 2>task4_1.out
