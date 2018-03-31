@@ -1,8 +1,8 @@
 #!/bin/bash
 
-touch .task4_1.out
-chmod 777 .task4_1.out
-exec 1>.task4_1.out
+touch task4_1.out
+chmod 777 task4_1.out
+exec 1>task4_1.out
 
 ###CPU in your PC
 CPU=$(cat /proc/cpuinfo | grep 'model name' | awk '{print $4 $5 $6 $7}')
@@ -14,7 +14,7 @@ else
 fi
 
 ###RAM in your PC
-RAM=$(free -m | grep Mem: | awk '{print $2"MB"}')
+RAM=$(free -m | grep Mem: | awk '{print $2 " " "MB"}')
     echo "RAM: "$RAM 
 
 ###Motherboard in your PC
@@ -39,8 +39,10 @@ fi
 ### Info about your OS
 echo "---System---"
 
-OSDist=$(uname -o) 
-    echo "OS Distribution: "$OSDist
+OSDist=$(lsb_release -a | grep Description | awk '{print $2" "$3}')
+OSD2=$(lsb_release -a |grep Codename | awk '{print $2}')
+OSD3=$(lsb_release -a |grep Distributor | awk '{print $3}') 
+    echo "OS Distribution: "$OSD3 $OSDist $OSD2
 
 ###Kernel for your OS
 Kernel=$(uname -r)
@@ -54,7 +56,7 @@ Date=$(stat /var/log/installer/ | grep Change | awk '{print $2}')
     echo "Hostname: "$HOSTNAME
 
 ###Uptime 
-Uptime=$(uptime -p)
+Uptime=$(uptime -p | awk '{print $2" " $3  $4 " " $5}')
     echo "Uptime: "$Uptime
 
 ###Processes running
@@ -68,5 +70,5 @@ UsersLogged=$(cat /etc/passwd | awk -F: '{if ($3>=1000) print $1}' | wc -l)
 
 ###Your network
 echo --- Network ---
-Network=$(ip -o -4 a | awk '$2 >=6 { print $2 ":" $4 }')
+Network=$(ip -o -4 a | awk '$2 >=6 { print $2 ":" " " $4 }')
    echo -e "$Network"
