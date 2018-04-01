@@ -73,11 +73,15 @@ UsersLogged=$(cat /etc/passwd | awk -F: '{if ($3>=1000) print $1}' | wc -l)
 
 
 ###Your network
-echo --- Network ---
-Network=$(ip -o -4 a | awk '$2 >=6 { print $2 ":" " " $4 }')
-#if [ip -o -4 a | awk '$4 >=6 {print $2 ":" "-"}')
-#then 
-   echo -e "$Network"
-#fi
+interface=(`ip address | awk '/mtu/{print $2}'`)
+ipaddr=(`ip address | awk '/inet /{print $2}'`)
+for (( i=0 ; i < ${#interface[*]} ; i++ ))
+ do
+if [ -z  "${ipaddr[$i]// /}" ];
+  then
+printf  "${interface[$i]} -\n"
+  else
+printf  "${interface[$i]} ${ipaddr[$i]}\n"
+fi
 
 
