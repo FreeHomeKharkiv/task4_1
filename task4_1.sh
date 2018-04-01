@@ -50,8 +50,12 @@ Kernel=$(uname -r)
 
 ###Installation date
 Date=$(stat /var/log/installer/ | grep Change | awk '{print $2}')
+if [[ -z $Date ]];
+ then
+    echo "Intallation date: Unknown"
+ else   
     echo "Installation date: "$Date
-
+fi
 ###Your Hostname
     echo "Hostname: "$HOSTNAME
 
@@ -71,4 +75,9 @@ UsersLogged=$(cat /etc/passwd | awk -F: '{if ($3>=1000) print $1}' | wc -l)
 ###Your network
 echo --- Network ---
 Network=$(ip -o -4 a | awk '$2 >=6 { print $2 ":" " " $4 }')
+#if [ip -o -4 a | awk '$4 >=6 {print $2 ":" "-"}')
+#then 
    echo -e "$Network"
+#fi
+
+
