@@ -49,7 +49,7 @@ Kernel=$(uname -r)
     echo "Kernel version: "$Kernel
 
 ###Installation date
-Date=$(stat /var/log/installer/ | grep Change | awk '{print $2}')
+Date=$(lvm lvdisplay | grep Creat | uniq | cut -f8 -d " ")
 if [[ -z $Date ]];
  then
     echo "Intallation date: Unknown"
